@@ -1,0 +1,186 @@
+{% extends 'base.html' %} {% block content %}
+<div id='content'>
+    <h2>All Characters</h2>
+    <div id='actions'>
+        <a id="add" onclick=add()>Add</a>
+        <input id="submit" class="hidden" type="submit" form="character">
+        <a id="delete" onclick=del()>Delete</a>
+    </div>
+    <div id="characters">
+        {% include 'characterForm.html' %} {% for character in characters.characters|sort(attribute='name') %}
+        <div class='character' id="{{character.id}}">
+            <ul class="characterList">
+                <li class="characterHeading">{{ character.name }}, Level {{ character.lvl }} {{character.job}}</li>
+                <ul class="hidden">
+                    <li class="playerName">Player: {{character.player_name}}</li>
+                    <li class="characterRace">Race: {{character.race}}</li>
+                    <li class="characterGender">Gender: {{character.gender}}</li>
+                    <li class="characterCurrency">Currency: {{character.currency}}</li>
+                    <li><a class="moreInfo" href='/character/edit/{{character.id}}'>Even More Info &#10170;</a></li>
+                </ul>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</div>{% endblock content %} {% block script %}
+<script>
+    function add() {
+        const form = document.getElementById("character");
+        const submit = document.getElementById("submit");
+        const btn = document.getElementById("delete");
+        form.setAttribute("class", "show");
+        submit.setAttribute("class", "show");
+        btn.innerText = "Cancel";
+    }
+    var btnAction;
+
+    function del() {
+        const form = document.getElementById("character");
+        const btn = document.getElementById("delete");
+        const submit = document.getElementById("submit");
+        if (form.className === "hidden") {
+            if (btn.innerText === "Delete") {
+                btn.innerText = 'Cancel';
+                btnAction = 'delete';
+                submit.setAttribute("class", "hidden")
+            } else {
+                btn.innerText = "Delete";
+                submit.setAttribute("class", "hidden")
+                btnAction = 'cancel'
+
+            }
+        } else {
+            form.reset();
+            form.setAttribute("class", "hidden");
+            submit.setAttribute("class", "hidden");
+            btn.innerText = "Delete"
+        }
+    }
+
+
+
+    var form = document.getElementById("character");
+    var btn = document.getElementById("delete");
+    var characters = document.getElementById("characters")
+    var playerInput = document.getElementById('player');
+    var nameInput = document.getElementById('name');
+    var jobInput = document.getElementById("job");
+    var raceInput = document.getElementById("race");
+    var genderInput = document.getElementById("gender");
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const player = playerInput.value;
+        const name = nameInput.value;
+        const job = jobInput.value;
+        const race = raceInput.value;
+        const gender = genderInput.options[genderInput.selectedIndex].text.toLowerCase();
+        form.reset();
+        form.setAttribute("class", "hidden");
+        del();
+        fetch('https://fsdn-capstone.herokuapp.com/characters', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'gender': gender,
+                    'job': job,
+                    'name': name,
+                    'player_name': player,
+                    'race': race
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.success == true) {
+                    const character = jsonResponse.character
+                    const return_id = character.id;
+                    const return_name = character.name;
+                    const return_player = character.player_name;
+                    const return_race = character.race;
+                    const return_gender = character.gender;
+                    const return_job = character.job;
+                    const return_lvl = 1;
+                    const return_currency = 0;
+                    const div = document.createElement('div');
+                    div.setAttribute('class', 'character');
+                    div.setAttribute('id', return_id);
+                    const ul = document.createElement('ul');
+                    ul.onclick = showHide;
+                    const text = document.createElement('text');
+                    ul.appendChild(text);
+                    const character_heading = document.createElement('li');
+                    character_heading.setAttribute('class', 'characterHeading');
+                    character_heading.innerText = return_name + ', Level ' + return_lvl + ' ' + return_job;
+                    const details = document.createElement('ul');
+                    details.setAttribute("class", "hidden")
+                    const player_li = document.createElement('li');
+                    player_li.innerText = "Player: " + return_player;
+                    details.appendChild(player_li);
+                    const race_li = document.createElement('li');
+                    race_li.innerText = "Race: " + return_race;
+                    details.appendChild(race_li);
+                    const gender_li = document.createElement('li');
+                    gender_li.innerText = "Gender: " + return_gender;
+                    details.appendChild(gender_li);
+                    const currency_li = document.createElement('li');
+                    currency_li.innerText = "Currency: " + return_currency;
+                    details.appendChild(currency_li);
+                    const edit_li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = "/character/edit/" + return_id
+                    a.innerHTML = "Even More Info &#10170;";
+                    a.setAttribute("class", "moreInfo")
+                    edit_li.appendChild(a);
+                    details.appendChild(edit_li);
+                    ul.setAttribute("class", "characterList");
+                    ul.appendChild(character_heading);
+                    const text2 = document.createElement('text');
+                    ul.appendChild(text2);
+                    ul.appendChild(details);
+                    div.appendChild(ul);
+                    characters.appendChild(div);
+                }
+            })
+    }
+    var blocks = document.getElementById("characters");
+    var items = document.getElementsByClassName("characterList");
+    for (var i = 0; i < items.length; i++) {
+        const item = items[i];
+        item.onclick = showHide;
+    }
+
+
+    function showHide() {
+        y = this.childNodes[3]
+        if (btnAction === 'delete') {
+            const toDelete = this.parentElement;
+            const del_id = toDelete.id;
+            const del_character = this.childNodes[1].innerText;
+            var r = confirm("Are you sure you want to Delete " + del_character);
+            if (r == true) {
+                fetch('https://fsdn-capstone.herokuapp.com/characters/' + del_id, {
+                        method: 'DELETE',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(jsonResponse => {
+                        if (jsonResponse.success = true) {
+                            toDelete.remove();
+                        } else {
+                            console.log('Error')
+                        }
+                    })
+            }
+        } else {
+            if (y.className === "hidden") {
+                y.setAttribute("class", "show");
+            } else {
+                y.setAttribute("class", "hidden");
+            }
+        }
+    }
+</script> {% endblock script %}

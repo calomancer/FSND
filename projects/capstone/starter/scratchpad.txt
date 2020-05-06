@@ -1,0 +1,61 @@
+
+AUTH0_DOMAIN = 'steep-tree-1863.auth0.com'
+ALGORITHMS = ['RS256']
+API_AUDIENCE = 'FSND-Capstone'
+
+https://steep-tree-1863.auth0.com/authorize?audience=FSND-Capstone&response_type=token&client_id=FC4-5xs6EibHdIfjmjGYFh1ihCKi3izB&redirect_uri=http://localhost:5000/callback
+player:
+http://localhost:5000/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFBQmtVOWhCQndTNmc0ZEhvRjd0USJ9.eyJpc3MiOiJodHRwczovL3N0ZWVwLXRyZWUtMTg2My5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVhMDUxOTM3OWI2NGUwY2Y0MDU1MzU0IiwiYXVkIjoiRlNORC1DYXBzdG9uZSIsImlhdCI6MTU4NzY2NjgyOSwiZXhwIjoxNTg3Njc0MDI5LCJhenAiOiJGQzQtNXhzNkVpYkhkSWZqbWpHWUZoMWloQ0tpM2l6QiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmNoYXJhY3RlciIsInBhdGNoOmNoYXJhY3RlciIsInBvc3Q6Y2hhcmFjdGVyIl19.q_Tf9iicG1d_2wFzRcGcc1QXRI-Wva6v4IgjPMrzDVTPe-caapOZ47Ey3HuprUACELVYb2xmIM2jb86d8JQysM57VGsT-ieftDGUo45dpmwTzmXq7wroaxn23tPSq8_Wyc9nWKXDtcytfJUun6ghvh9eU-0ukAATgC326KmB__DuMj_aalvXnPFsFhfNcAEOlLcs07QvS6dBBZ44Crxry1BbmwAVt_d48qxxvmSlwGJxSpuJuDegenptDh7FE5Asv32s6bzKzmyM4E88ubE_OuuFYGn8pos_a7e4X3dujSIpdgybF2IQMuyY7CdDOQH1MhFT0eFyX3uIKgiBPqLEYw&expires_in=7200&token_type=Bearer
+
+DM:
+http://localhost:5000/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFBQmtVOWhCQndTNmc0ZEhvRjd0USJ9.eyJpc3MiOiJodHRwczovL3N0ZWVwLXRyZWUtMTg2My5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVhMDg3YjJkOTAyMTYwYzkyOTcxOTQxIiwiYXVkIjoiRlNORC1DYXBzdG9uZSIsImlhdCI6MTU4NzY2Nzc1MiwiZXhwIjoxNTg3Njc0OTUyLCJhenAiOiJGQzQtNXhzNkVpYkhkSWZqbWpHWUZoMWloQ0tpM2l6QiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmdyb3VwIiwicGF0Y2g6Z3JvdXAiLCJwb3N0Omdyb3VwIl19.k2VoeaddtRiTu8WFkwyY4rP5IyUTwfbox-auShANNzFmvYVRXJRZpVgmavAD7rl1L2IkFzH9j2K1fRWVm16otqRAm2ujkGdaN0OZPl-dNwPuXvdXZ6luwEFnxtId-44k4C3mjXNmcTABQTbJ1n4_hG3nNwk91zJNLA_1XWnZO2RB3dn-zlvexUfBmCIUV3BS6lYinci5IgPv6O-crrMs066qqVpaUFjNuTwCfra5agcmBeNV-LPzNtOqwpTLyTqIypz6yMjK-pg2NAMx5BDBo8GobyGJSyceW0CfT9FMOMCzsQg-LmJTtD3s1WO-T8qTaDJ5RwZWS_6TFRILrl3TCw&expires_in=7200&token_type=Bearer
+
+admin:
+http://localhost:5000/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFBQmtVOWhCQndTNmc0ZEhvRjd0USJ9.eyJpc3MiOiJodHRwczovL3N0ZWVwLXRyZWUtMTg2My5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTI1NzUyMzg5Mzc1ODg3ODUzMzEiLCJhdWQiOiJGU05ELUNhcHN0b25lIiwiaWF0IjoxNTg3NTc4OTYwLCJleHAiOjE1ODc1ODYxNjAsImF6cCI6IkZDNC01eHM2RWliSGRJZmptakdZRmgxaWhDS2kzaXpCIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6Y2hhcmFjdGVyIiwiZGVsZXRlOmdyb3VwIiwicGF0Y2g6Y2hhcmFjdGVyIiwicGF0Y2g6Z3JvdXAiLCJwb3N0OmNoYXJhY3RlciIsInBvc3Q6Z3JvdXAiXX0.RV9GtI0v-TcsF2FHQeRgKcdFy2QwD1eKuckeFwVFVTzaq4yFfxJG5NC5xvBnkON2Gie3q-racbGpT8JjH1WVCa73Foau1VA-ICLZAeNzXclh-SX7T4XDZo5B3qtL2pwSeRq4Y5SuvJxyiKUvET41Xjmh9m2oFpGSk2xN5SB9oCGqhJa1LZaIBjAFJPacVy6CGzCjjUQSwQ8Y2xbhCTz4UEFnJ_was45nEEttlkeNaMYxj1KicpM4H1UPNtlO4-9NpwSiU--riasq5IwuPQ9n8YNOIUdtC8RJ9Id59SlVli0wg_Uh_OfH8-Ir4E1NUynSC6zpY0zAvFuxX1PKvypgAw&expires_in=7200&token_type=Bearer
+
+http://localhost:5000/#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFBQmtVOWhCQndTNmc0ZEhvRjd0USJ9.eyJpc3MiOiJodHRwczovL3N0ZWVwLXRyZWUtMTg2My5hdXRoMC5jb20vIiwic3ViIjoiYXV0aDB8NWVhMDUxOTM3OWI2NGUwY2Y0MDU1MzU0IiwiYXVkIjoiRlNORC1DYXBzdG9uZSIsImlhdCI6MTU4Nzg2Nzk3NSwiZXhwIjoxNTg3ODc1MTc1LCJhenAiOiJGQzQtNXhzNkVpYkhkSWZqbWpHWUZoMWloQ0tpM2l6QiIsInNjb3BlIjoiIiwicGVybWlzc2lvbnMiOlsiZGVsZXRlOmNoYXJhY3RlciIsInBhdGNoOmNoYXJhY3RlciIsInBvc3Q6Y2hhcmFjdGVyIl19.rzm6Gfi2L-0zBvfJvwgImUOspCCds34dNXgqTst5U6nzoMoCwSczY8p8nQbU9McWFZWRFIXj4raqoH14rWlbHl89fnVSPoC0xMTGB_rEBiEAXsqD4bp3t6O9INoeawI_5mauL5Yw45n7K80-fTvreLDoMVWfR5i53RlkV_movFI2PlDN6kk8Zs5vsPE6AFFBBEAQJHukcqlShGiYslkTgncVTCC4vKtIpLsNFvDZling6V9XkKldeHhwjV4pULP4Lpwt8HRkR5ZuHklvCNSy5LTkANSyktD_aXsQ4Vc50717dXA4lYlh9agXpgP1sFJk0_hSWLij8QLK2RYQIbD3Vw&expires_in=7200&token_type=Bearer
+
+s%3AQNCt4WO_s8xNr6CYW_RD9YrTS2OZRn5t.pEh8sOZASaXmyzgS8bi4ww2x4etQkkie%2F9QL2Pwli%2Bk
+s%3AQNCt4WO_s8xNr6CYW_RD9YrTS2OZRn5t.pEh8sOZASaXmyzgS8bi4ww2x4etQkkie%2F9QL2Pwli%2Bk
+s%3Av0%3Abc71d800-84a1-11ea-9b43-af91b116dd69.qP%2B9p9AyiyJTLX7oy6xLnrGLB38gJhl%2FNp2EaHtO0m0
+9AyiyJTLX7oy6xLnrGLB38gJhl%2FNp2EaHtO0m0.eJy1UEtPwyAA_iuGs10frGvXk49kL6dGozZ6IbSFlo5CbWHLnPvvwjTOi4kXE8Lhe_F97ADCWlXe4eYsQ0KKnCCQgCWlj4ub9PkKzmFYv0766u0anIJ6o1CLt1ziAiQ7QBrMuFHXOjOnV6Q7Ky00yGVj1AcarUnHKCPGoDpNTgHFDeNbJHBDjHWBRS-FEZdsTcQRzWVmQC5zzC1ArOQnefJtFCxffTHHHgZvWa50Z-FKqbZPXJdXcFBKWXKie9LlUigilO3qYsc9v6384bScXZTLVNez7bR7ovzufjOheblIcXMZZykjcxo60cqD0jzQ68yEfwY60n5h8O77QRiFAYzHMArjOIpDCH2j1W2BFSkQVsYSeIHneEMniB78UQLHSQgHfjR6AXvTupOU2cm7X-b--ywbgljxx2n7_QdhWr2f.XqcK2w.dETW9_ywd99GDmpLxwMo6QLa-4g
+												
+.eJy1UEtPwyAA_iuGs10frGvXk49kL6dGozZ6IbSFlo5CbWHLnPvvwjTOi4kXE8Lhe_F97ADCWlXe4eYsQ0KKnCCQgCWlj4ub9PkKzmFYv0766u0anIJ6o1CLt1ziAiQ7QBrMuFHXOjOnV6Q7Ky00yGVj1AcarUnHKCPGoDpNTgHFDeNbJHBDjHWBRS-FEZdsTcQRzWVmQC5zzC1ArOQnefJtFCxffTHHHgZvWa50Z-FKqbZPXJdXcFBKWXKie9LlUigilO3qYsc9v6384bScXZTLVNez7bR7ovzufjOheblIcXMZZykjcxo60cqD0jzQ68yEfwY60n5h8O77QRiFAYzHMArjOIpDCH2j1W2BFSkQVsYSeIHneEMniB78UQLHSQgHfjR6AXvTupOU2cm7X-b--ywbgljxx2n7_QdhWr2f.XqcK2w.dETW9_ywd99GDmpLxwMo6QLa-4g
+
+http://localhost:5000/dashboard#access_token=eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6IjFBQmtVOWhCQndTNmc0ZEhvRjd0USJ9.eyJpc3MiOiJodHRwczovL3N0ZWVwLXRyZWUtMTg2My5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMTI1NzUyMzg5Mzc1ODg3ODUzMzEiLCJhdWQiOiJGU05ELUNhcHN0b25lIiwiaWF0IjoxNTg4MDA3Mzg1LCJleHAiOjE1ODgwMTQ1ODUsImF6cCI6IkZDNC01eHM2RWliSGRJZmptakdZRmgxaWhDS2kzaXpCIiwic2NvcGUiOiIiLCJwZXJtaXNzaW9ucyI6WyJkZWxldGU6Y2hhcmFjdGVyIiwiZGVsZXRlOmdyb3VwIiwicGF0Y2g6Y2hhcmFjdGVyIiwicGF0Y2g6Z3JvdXAiLCJwb3N0OmNoYXJhY3RlciIsInBvc3Q6Z3JvdXAiXX0.rb3KRX5Ka0wqBRRk3bfE3IEpMR_yI3sZe8HbcfwI1-YE3XjCq69O6C1s2FeG_ITNKdObQkAyZ5tUZBR6BEK-Y8CA2SR3KbfYsWFUu6SyHLdfcqx8aTFdJ-NWW_9zQyj0WwkYVzhnpb9ownJ-xhSvkNj4bUKcl1PZS1DgR42FFKHBduymPo9tmLRlAdKS6YJ4q9cNmztvh0PifBYPgzeJJEw7kK9bhuotA51-4PDGhnTzUXDtfQQmVaMoPejPXZRwVvxHW9TAmxIdKLHpUlsPVc36MZZb7kCtypmk2YvWAD_cxun5p55OLv8aAZRPkZVIi12yhSLVdDrusjVBgl59GA&expires_in=7200&token_type=Bearer
+
+
+.then(jsonResponse => {
+                const return_id = jsonResponse.id;
+                const return_name = jsonResponse.name;
+                const return_player = jsonResponse.player_name;
+                const return_race = jsonResponse.race;
+                const return_gender = jsonResponse.gender;
+                const return_job = jsonResponse.job;
+                const return_lvl = 0;
+                const return_currency = 0;
+                const div = document.createElement('div');
+                div.setAttribute('class', 'character');
+                div.setAttribute('id', return_id);
+                const ul = document.createElement('ul');
+                ul.onclick = 'showHide(this)';
+                const character_heading = document.createElement('li');
+                character_heading.setAttribute('class', 'characterHeading');
+                character_heading.innerText = return_name + ', ' + return_lvl + ' ' + return_job;
+                const details = document.createElement('ul');
+                const player_li = document.createElement('li');
+                player_li.innerText = return_player;
+                details.appendChild(player_li);
+                const race_li = document.createElement('li');
+                race_li.innerText = return_race;
+                details.appendChild(race_li);
+                const gender_li = document.createElement('li');
+                gender_li.innerText = return_gender;
+                details.appendChild(gender_li);
+                const currency_li = document.createElement('li');
+                currency_li.innerText = return_currency;
+                details.appendChild(currency_li);
+                ul.appendChild(character_heading);
+                ul.appendChild(details);
+                div.appendChild(ul);
+            })

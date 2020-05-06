@@ -1,0 +1,32 @@
+{% if 'group/edit/' in request.path %}
+<form id="editGroup" class="hidden">
+    <table>
+        <tr>
+            <th colspan="2">Edit Group Information</th>
+        </tr>
+        <tr>
+            <td><label for="player">Dungeon Master</label></td>
+            <td><input type="text" id="player" value="{{ groupInfo.player_name }}" required/></td>
+        </tr>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" id="name" value="{{ groupInfo.name }}" required/></td>
+        </tr>
+    </table>
+</form> {% else %}
+<form id="addGroup" class="hidden">
+    <table>
+        <tr>
+            <th colspan="2">Add a New Group</th>
+        </tr>
+        <tr>
+            <td><label for="player">Dungeon Master</label></td>
+            <td><input type="text" id="player" required/></td>
+        </tr>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" id="name" required/></td>
+        </tr>
+
+    </table>
+</form> {% endif %}

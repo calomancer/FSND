@@ -1,0 +1,255 @@
+{% extends 'base.html' %} {% block content %}
+<div id='content'>
+    {% set groupInfo = group.group %} {% set characters = group.characters %}
+    <h2>{{ groupInfo.name }}</h2>
+    <div class="hidden" id="group_id">{{ groupInfo.id }}</div>
+    <div id='actions'>
+        <input id="submit" class="hidden" type="submit" form="editGroup">
+        <a id="edit" onclick=edit()>Edit</a>
+    </div>
+    <div id="groups">
+        <div id="groupInfo" class="show">
+            <ul>
+                <li>Dungeon Master</li>
+                <ul>
+                    <li>{{ groupInfo.player_name }}</li>
+                </ul>
+            </ul>
+        </div>
+        {% include 'groupForm.html' %}
+        <form autocomplete="off" class="hidden" id="searchForm">
+            <div class="autocomplete">
+                <input type="text" id="search" onkeyup="searchAction()" placeholder="Search for Character" />
+                <div id="groupError" class="hidden">That character already in the group!</div>
+                <ul id="characterList">
+                    {% for character in addCharacters.characters %}
+                    <li><a class="character_li" id="{{ character.id }}" onclick=addCharacter(this)>{{ character.name }}, Level {{ character.lvl }} {{ character.job }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </form>
+        <div id='characters' style="border: none !important;">
+            <h3>Group Members</h3>
+            <div id="subhead" class='hidden'>Click name to remove character.</div>
+            <ul id="groupCharacterList">
+                {% for character in characters|sort(attribute='name') %}
+                <li class="charactersli" id="{{ character.id }}" onclick=delCharacter;>{{ character.name }}, LVL {{ character.lvl }} {{ character.job }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>{% endblock content %} {% block script %}
+<script>
+    var btnAction = false;
+
+    function edit() {
+        const info = document.getElementById('groupInfo');
+        const form = document.getElementById("editGroup");
+        const btn = document.getElementById("edit");
+        const submit = document.getElementById("submit");
+        const search = document.getElementById("searchForm");
+        const subhead = document.getElementById("subhead");
+        if (btn.innerText === "Edit") {
+            form.setAttribute("class", "show");
+            btn.innerText = "Cancel";
+            info.setAttribute('class', 'hidden');
+            submit.setAttribute("class", "show");
+            search.setAttribute("class", "show");
+            subhead.setAttribute("class", "show");
+            btnAction = true;
+        } else {
+            form.setAttribute("class", "hidden");
+            submit.setAttribute("class", "hidden");
+            btn.innerText = "Edit";
+            info.setAttribute('class', 'show');
+            search.setAttribute("class", "hidden");
+            subhead.setAttribute("class", "hidden");
+            btnAction = false;
+        }
+    }
+    var form = document.getElementById("editGroup");
+    var btn = document.getElementById("delete");
+    var group = document.getElementById("group")
+
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const player = playerInput.value;
+        const name = nameInput.value;
+        toLowerCase();
+        const id = document.getElementById('characterID').innerText;
+        form.setAttribute("class", "hidden");
+        fetch('https://fsdn-capstone.herokuapp.com/characters/' + id, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    'currency': currency,
+                    'gender': gender,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.success = true) {
+                    window.location.href = "/character"
+                }
+            })
+    }
+    var groupCharacters = [];
+    existingCharacters();
+
+    function existingCharacters() {
+        const existing = document.getElementsByClassName("charactersli");
+        for (let i = 0; i < existing.length; i++) {
+            const character_id = existing[i].id;
+            groupCharacters.push(parseInt(character_id));
+            const character = document.getElementById(character_id);
+            character.setAttribute('class', 'hidden');
+        }
+    }
+
+
+
+    var groupError = document.getElementById("groupError");
+
+    function setHidden() {
+        groupError.setAttribute('class', 'hidden');
+    }
+
+
+    function addCharacter(e) {
+        const id = parseInt(e.id);
+        const character = document.getElementById(id);
+        character.setAttribute("class", "hidden");
+        console.log(character);
+        if (groupCharacters.indexOf(id) != -1) {
+            console.log("It Exists Already!");
+            groupError.innerText = "That character already in the group!"
+            groupError.setAttribute('class', '');
+            setTimeout(setHidden, 5000)
+            character.setAttribute("class", 'show');
+        } else {
+            fetch('https://fsdn-capstone.herokuapp.com/characters/' + id, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                    }
+                })
+                .then(response => response.json())
+                .then(jsonResponse => {
+                    if (jsonResponse.success = true) {
+                        const character = jsonResponse.character;
+                        groupCharacters.push(character.id);
+                        const characterList = document.getElementById('groupCharacterList')
+                        const li = document.createElement('li');
+                        const name = character.name;
+                        const lvl = character.lvl;
+                        const job = character.job;
+                        const id = character.id;
+                        li.innerText = name + ', Level ' + lvl + ' ' + job;
+                        li.setAttribute('class', "charactersli")
+                        li.setAttribute('id', id);
+                        characterList.appendChild(li);
+                        li.onclick = delCharacter;
+
+                    }
+                    console.log(groupCharacters);
+                })
+        }
+
+    }
+
+    function searchAction() {
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById("search");
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("characterList");
+        li = ul.getElementsByTagName("li");
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+    }
+
+    function delCharacter() {
+        if (btnAction == true) {
+            const id = parseInt(this.id);
+            const name = this.innerText;
+            var r = confirm("Are you sure you want to remove " + name + " from the group?")
+            if (r == true) {
+                const index = groupCharacters.indexOf(id);
+                if (index > -1) {
+                    groupCharacters.splice(index, 1);
+                    this.remove();
+                    const character = document.getElementById(id);
+                    character.setAttribute("class", "show");
+                }
+            } else {
+                groupError.innerText = "There was an error removing the character!"
+                groupError.setAttribute('class', '');
+                setTimeout(setHidden, 5000)
+            }
+        }
+    }
+    var list = document.getElementById('groupCharacterList')
+    var items = list.getElementsByTagName('li');
+
+    // For each <li> inside #links
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        // <li> onclick, runAlert function
+        item.onclick = delCharacter;
+    }
+
+    var form = document.getElementById('editGroup');
+    var btn = document.getElementById('edit');
+    var dmInput = document.getElementById('player');
+    var nameInput = document.getElementById('name');
+    var group_id = document.getElementById('group_id');
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const id = parseInt(group_id.innerText);
+        const dm = dmInput.value;
+        const name = nameInput.value;
+        const characters = [];
+        for (var i = 0; i < groupCharacters.length; i++) {
+            const temp = {}
+            temp.id = groupCharacters[i];
+            characters.push(temp);
+        }
+        const groupJSON = {};
+        groupJSON.id = id;
+        groupJSON.name = name;
+        master = {};
+        master.player_name = dm;
+        groupJSON.master = master;
+        form.setAttribute("class", "hidden");
+        edit();
+        fetch('https://fsdn-capstone.herokuapp.com/groups/' + id, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    "characters": characters,
+                    "group": groupJSON,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.success = true) {
+                    console.log('Success: True')
+                } else(
+                    console.log('Success: False')
+                )
+            })
+    }
+</script> {% endblock script %}

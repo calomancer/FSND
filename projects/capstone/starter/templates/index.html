@@ -1,0 +1,44 @@
+{% extends 'base.html' %} {% block content %}
+<div id="content">
+    <h2>Introduction</h2>
+    <h3>What am I?</h3>
+    <p>This is a sample page for an API I have created to help Table Top tournament organizers make, organize, and keep track of player characters and the groups of those characters.</p>
+    <h3>Why am I?</h3>
+    <p>This api was created for Organizers for Table Top Tournaments (Yeah, they have those) This allows an organizer, Game Masters, players, and those interested in the games to quickly create, edit, and organize player groups and characters related to
+        those groups. </p>
+    <h3>What do I do?</h3>
+    <p>There are four ways to interact with this content.
+        <ol>
+            <li>As Administrators</li>
+            <ol>
+                <li>View/Create/Edit/Delete Characters</li>
+                <li>View/Create/Edit/Delete Groups</li>
+            </ol>
+            <li>As Dungeon/Game Masters</li>
+            <ol>
+                <li>View Characters</li>
+                <li>View/Create/Edit/Delete Groups</li>
+            </ol>
+            <li>As Players</li>
+            <ol>
+                <li>View/Create/Edit/Delete Characters</li>
+                <li>View Groups</li>
+            </ol>
+            <li>Unregistered users</li>
+            <ol>
+                <li>View Characters</li>
+                <li>View Groups</li>
+            </ol>
+        </ol>
+    </p>
+</div>{% endblock content %} {% block script %}
+<script>
+    if (sessionStorage.getItem('token') === null) {
+        const myURL = window.location.href
+        if (myURL.includes('access_token')) {
+            var token = myURL.split('#')[1].split("&")[0].split('=')[1]
+            sessionStorage.setItem('token', token)
+        }
+    };
+</script>
+{% endblock script %}

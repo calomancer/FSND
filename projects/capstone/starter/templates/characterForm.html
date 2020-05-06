@@ -1,0 +1,76 @@
+{% if 'character/edit/' in request.path %}
+<form id="character" class="hidden">
+    <table>
+        <tr>
+            <td><label for="player">Player</label></td>
+            <td><input type="text" id="player" value="{{ characterInfo.player_name }}" required/></td>
+        </tr>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" id="name" value="{{ characterInfo.name }}" required/></td>
+        </tr>
+        <tr>
+            <td><label for="level">Level</label></td>
+            <td><input type="text" id="lvl" value="{{ characterInfo.lvl }}" /></td>
+        </tr>
+        <tr>
+            <td><label for="job">Class</label></td>
+            <td><input type="text" id="job" value="{{ characterInfo.job }}" required/></td>
+        </tr>
+        <tr>
+            <td><label for="race">Race</label></td>
+            <td><input type="text" id="race" value="{{ characterInfo.race }}" required/></td>
+        </tr>
+        <tr>
+            <td><label for="currency">Currency</label></td>
+            <td><input type="text" id="currency" value="{{ characterInfo.currency }}" /></td>
+        </tr>
+        <tr>
+            <td><label for="gender">Gender</label></td>
+            <td><select id="gender" name="gender">
+                {% if "male" == characterInfo.gender  %}
+                <option value="male" selected>Male</option>
+                <option value="female">Female</option>
+                {% else %}
+                <option value="male" >Male</option>
+                <option value="female" selected>Female</option>
+                {% endif %}
+                
+            </select></td>
+        </tr>
+    </table>
+    <hr />
+</form>
+{% else %}
+
+<form id="character" class="hidden">
+    <table>
+        <tr>
+            <th colspan="2">Add a New Character</th>
+        </tr>
+        <tr>
+            <td><label for="player">Player</label></td>
+            <td><input type="text" id="player" required/></td>
+        </tr>
+        <tr>
+            <td><label for="name">Name</label></td>
+            <td><input type="text" id="name" required/></td>
+        </tr>
+        <tr>
+            <td><label for="job">Class</label></td>
+            <td><input type="text" id="job" required/></td>
+        </tr>
+        <tr>
+            <td><label for="race">Race</label></td>
+            <td><input type="text" id="race" required/></td>
+        </tr>
+        <tr>
+            <td><label for="gender">Gender</label></td>
+            <td><select id="gender" name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select></td>
+        </tr>
+    </table>
+    <hr />
+</form> {% endif %}

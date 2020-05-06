@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+</head>
+
+<body>
+    <h1><a href="/">Table-Top Stuff</a></h1>
+    <div id="navbar">
+        <div id='main-nav'>
+            <a href="/character">Characters</a>
+            <a href="/group">Groups</a>
+            <a id='login'>Login</a>
+        </div>
+    </div>
+    {% block content %} {% endblock content %}
+    <div id="footer">
+        <div id="social">
+            <a id="twitter" href="https://twitter.com/Calomancer?ref_src=twsrc%5Etfw" target="_blank">t - Follow @Calomancer</a>
+            <a id="github" href="https://github.com/calomancer" target="_blank">g - Follow @Calomancer</a>
+            <a id="instagram" href="https://www.instagram.com/calomancer" target="_blank">i - @Calomancer</a>
+            <a id="website" href="http://www.jakeisawesome.com/" target="_blank">w - jakeisawesome.com</a>
+            <a>&copy;2020</a>
+        </div>
+    </div>
+</body> {% block script %} {% endblock script %}
+<script>
+    // When the user scrolls the page, execute myFunction
+    window.onscroll = function() {
+        myFunction()
+    };
+
+    // Get the navbar
+    var navbar = document.getElementById("navbar");
+
+    // Get the offset position of the navbar
+    var sticky = navbar.offsetTop;
+
+    // Add the sticky class to the navbar when you reach its scroll position. Remove "sticky" when you leave the scroll position
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+    const loginBtn = document.getElementById('login')
+    if (sessionStorage.getItem('token') === null) {
+        loginBtn.innerText = 'Login';
+        loginBtn.onclick = function login() {
+            window.location.href = 'https://steep-tree-1863.auth0.com/authorize?audience=FSND-Capstone&response_type=token&client_id=FC4-5xs6EibHdIfjmjGYFh1ihCKi3izB&redirect_uri=https://fsdn-capstone.herokuapp.com/callback';
+        };
+    } else if (sessionStorage.getItem('token')) {
+        loginBtn.innerText = 'Logout';
+        loginBtn.onclick = function logout() {
+            sessionStorage.clear();
+            window.location.href = '/';
+        };
+    }
+</script>
+
+</html>

@@ -1,0 +1,97 @@
+{% extends 'base.html' %} {% block content %}
+<div id='content'>
+    {% set characterInfo = character.character %} {% set group = characterInfo.group %}
+    <h2>{{ characterInfo.name }}</h2>
+    <div id='actions'>
+        <input id="submit" class="hidden" type="submit" form="character">
+        <a id="edit" onclick=edit()>Edit</a>
+    </div>
+    <div id="characters">
+        <div id="characterInfo" class="show">
+            <div class='hidden' id="characterID">{{ characterInfo.id }}</div>
+            <ul>
+                <li>Character Information </li>
+                <ul>
+                    <li>ID: {{ characterInfo.id }}</li>
+                    <li>Class: {{ characterInfo.job }}</li>
+                    <li>Level: {{ characterInfo.lvl }}</li>
+                    <li>Race: {{ characterInfo.race }}</li>
+                    <li>Gender: {{ characterInfo.gender }}</li>
+                    <li>Currency: {{ characterInfo.currency }}</li>
+                    <li>Player: {{ characterInfo.player_name }}</li>
+                </ul>
+                <li>Character Group</li>
+                <ul>
+                    <li>ID: {{ group.id }}</li>
+                    <li>Name: {{ group.name }}</li>
+                    <li>DM: {{ group.player_name }}
+                </ul>
+            </ul>
+        </div>
+        {% include 'characterForm.html' %}
+    </div>
+</div>{% endblock content %} {% block script %}
+<script>
+    function edit() {
+        const info = document.getElementById('characterInfo');
+        const form = document.getElementById("character");
+        const btn = document.getElementById("edit");
+        const submit = document.getElementById("submit");
+        if (btn.innerText === "Edit") {
+            form.setAttribute("class", "show");
+            btn.innerText = "Cancel";
+            info.setAttribute('class', 'hidden');
+            submit.setAttribute("class", "show");
+        } else {
+            form.setAttribute("class", "hidden");
+            submit.setAttribute("class", "hidden");
+            btn.innerText = "Edit";
+            info.setAttribute('class', 'show');
+        }
+    }
+    var form = document.getElementById("character");
+    var btn = document.getElementById("delete");
+    var characters = document.getElementById("characters")
+    var playerInput = document.getElementById('player');
+    var nameInput = document.getElementById('name');
+    var jobInput = document.getElementById("job");
+    var raceInput = document.getElementById("race");
+    var genderInput = document.getElementById("gender");
+    var lvlInput = document.getElementById("lvl");
+    var currencyInput = document.getElementById("currency");
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const player = playerInput.value;
+        const name = nameInput.value;
+        const job = jobInput.value;
+        const race = raceInput.value;
+        const gender = genderInput.options[genderInput.selectedIndex].text.toLowerCase();
+        const lvl = lvlInput.value;
+        const currency = currencyInput.value;
+        const id = document.getElementById('characterID').innerText;
+        form.setAttribute("class", "hidden");
+        fetch('https://fsdn-capstone.herokuapp.com/characters/' + id, {
+                method: 'PATCH',
+                body: JSON.stringify({
+                    "currency": currency,
+                    'gender': gender,
+                    'id': id,
+                    'job': job,
+                    'lvl': lvl,
+                    'name': name,
+                    'player_name': player,
+                    'race': race
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                if (jsonResponse.success = true) {
+                    window.location.href = "/character"
+                }
+            })
+    }
+</script> {% endblock script %}

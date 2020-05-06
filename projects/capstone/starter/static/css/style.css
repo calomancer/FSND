@@ -1,0 +1,207 @@
+body {
+    font-size: 28px;
+    font-family: Arial, Helvetica, sans-serif;
+    max-width: 1000px;
+    margin: 0px auto;
+}
+
+ul {
+    margin: 0;
+    padding: 10px 0;
+    list-style-type: none;
+}
+
+ul ul {
+    margin-left: 20px;
+}
+
+.header {
+    background-color: #f1f1f1;
+    padding: 30px;
+    text-align: center;
+}
+
+#navbar,
+#footer,
+#actions {
+    overflow: hidden;
+    background-color: #333;
+}
+
+#navbar a,
+#footer a,
+#actions a,
+#actions input {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+#actions a,
+#actions input {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+#navbar a:hover,
+#footer a:hover,
+#actions a:hover,
+#actions input:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+#actions input {
+    background-color: #333;
+    border: none;
+    display: inline-block;
+}
+
+#main-nav li,
+#footer li,
+#actions li {
+    display: inline-block;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.sticky+.content {
+    padding-top: 60px;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}
+
+h1 a {
+    text-decoration: none;
+    color: #333;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+#content {
+    background: url("/static/imgs/bg.png") top scroll;
+    height: auto;
+    padding: 50px;
+}
+
+.show {
+    display: inherit !important;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#characters,
+#groups {
+    border: 2px solid #333;
+    border-top: 0;
+    padding: 20px;
+    clear: both;
+}
+
+.character,
+.group {
+    cursor: pointer;
+}
+
+.characterGender {
+    text-transform: capitalize;
+}
+
+label {
+    font-size: 16px;
+}
+
+.moreInfo {
+    font-size: 16px !important;
+}
+
+hr {
+    border-top: 1px solid #333
+}
+
+input[type=text],
+select {
+    background-repeat: no-repeat;
+    width: 100%;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #ddd;
+    margin-bottom: 12px;
+}
+
+#subhead {
+    margin-top: -30px;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #333;
+}
+
+
+/*characterSearch*/
+
+#groupError {
+    color: red;
+    font-weight: bold;
+    display: inline-block;
+}
+
+#search {
+    background-image: url('/static/imgs/noun_Search_2271096.svg');
+    background-size: auto;
+    background-repeat: no-repeat;
+    width: auto;
+    font-size: 16px;
+    padding: 12px 20px 12px 40px;
+    border: 1px solid #333;
+    margin-bottom: 12px;
+}
+
+#characterList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    height: auto;
+    max-height: 500px;
+    width: auto;
+    overflow-y: auto;
+    overflow-x: none;
+}
+
+#characterList li a {
+    border: 1px solid #ddd;
+    margin-top: -1px;
+    width: auto;
+    /* Prevent double borders */
+    background-color: #f6f6f6;
+    padding: 12px 20px 12px 40px;
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+    display: block
+}
+
+#characterList li a:hover:not(.header) {
+    background-color: #eee;
+}

@@ -5,9 +5,9 @@ from jose import jwt
 from urllib.request import urlopen
 
 
-AUTH0_DOMAIN = 'jakeisawesome.auth0.com'
+AUTH0_DOMAIN = 'steep-tree-1863.auth0.com'
 ALGORITHMS = ['RS256']
-API_AUDIENCE = 'dev'
+API_AUDIENCE = 'FSND-Capstone'
 
 ## AuthError Exception
 '''
@@ -147,7 +147,7 @@ def verify_decode_jwt(token):
 '''
 Done implement @requires_auth(permission) decorator method
     @INPUTS
-        permission: string permission (i.e. 'post:drink')
+        permission: string permission
 
     it should use the get_token_auth_header method to get the token
     it should use the verify_decode_jwt method to decode the jwt
@@ -166,10 +166,7 @@ def requires_auth(permission=''):
                 
             check_permissions(permission, payload)
             
-            if(kwargs.get('id')):
-                return f(kwargs.get('id'))
-            else:
-                return f(payload, *args, **kwargs)
+            return f(payload, *args, **kwargs)
 
         return wrapper
     return requires_auth_decorator

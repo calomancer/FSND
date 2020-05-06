@@ -1,0 +1,135 @@
+{% extends 'base.html' %} {% block content %}
+<div id='content'>
+    <h2>All Groups</h2>
+    <div id='actions'>
+        <a id="add" onclick=add()>Add</a>
+        <input id="submit" class="hidden" type="submit" form="addGroup">
+        <a id="delete" onclick=del()>Delete</a>
+    </div>
+    <div id="groups">
+        {% include 'groupForm.html' %} {% for group in groups.groups|sort(attribute='name')%}
+        <div class='group' id="{{group.id}}">
+            <ul>
+                <li>{{group.name}}, {{group.player_name}}</li>
+            </ul>
+        </div>
+        {% endfor %}
+    </div>
+</div>{% endblock content %}{% block script %}
+<script>
+    function add() {
+        const form = document.getElementById("addGroup");
+        const submit = document.getElementById("submit");
+        const btn = document.getElementById("delete");
+        form.setAttribute("class", "show");
+        submit.setAttribute("class", "show");
+        btn.innerText = "Cancel";
+    }
+
+    var btnAction;
+
+    function del() {
+        const form = document.getElementById("addGroup");
+        const btn = document.getElementById("delete");
+        const submit = document.getElementById("submit");
+        if (form.className === "hidden") {
+            if (btn.innerText === "Delete") {
+                btn.innerText = 'Cancel';
+                btnAction = 'delete';
+                submit.setAttribute("class", "hidden")
+            } else {
+                btn.innerText = "Delete";
+                submit.setAttribute("class", "hidden")
+                btnAction = 'cancel'
+
+            }
+        } else {
+            form.reset();
+            form.setAttribute("class", "hidden");
+            submit.setAttribute("class", "hidden");
+            btn.innerText = "Delete"
+        }
+    }
+    var list = document.getElementById('groups');
+    items = list.getElementsByTagName('ul');
+    for (var i = 0; i < items.length; i++) {
+        var item = items[i];
+        item.onclick = delGroup;
+        console.log(item)
+    }
+
+    function delGroup() {
+        y = this.childNodes[3];
+        if (btnAction === 'delete') {
+            const toDelete = this.parentElement;
+            const del_id = toDelete.id;
+            const del_group = this.childNodes[1].innerText;
+            var r = confirm("Are you sure you want to Delete " + del_group);
+            if (r == true) {
+                fetch('https://fsdn-capstone.herokuapp.com/groups/' + del_id, {
+                        method: 'DELETE',
+                        body: JSON.stringify({
+                            null: null
+                        }),
+
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(jsonResponse => {
+                        if (jsonResponse.success = true) {
+                            toDelete.remove();
+                        } else {
+                            console.log('Error')
+                        }
+                    })
+            }
+        } else {
+            y = this.parentElement.id
+            window.location.href = 'group/edit/' + y;
+        }
+    }
+
+    var form = document.getElementById("addGroup")
+    var playerInput = document.getElementById("player");
+    var nameInput = document.getElementById('name')
+    form.onsubmit = function(e) {
+        e.preventDefault();
+        const player = playerInput.value;
+        const name = nameInput.value;
+        form.reset();
+        form.setAttribute("class", "hidden");
+        del();
+        fetch('https://fsdn-capstone.herokuapp.com/groups', {
+                method: 'POST',
+                body: JSON.stringify({
+                    'name': name,
+                    'player_name': player
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(jsonResponse => {
+                const groups = document.getElementById('groups');
+                const group = jsonResponse.group;
+                const id = group.id;
+                const name = group.name;
+                const player = group.player_name;
+                const div = document.createElement('div');
+                div.setAttribute("class", "group");
+                div.setAttribute("id", id);
+                const ul = document.createElement('ul');
+                const li = document.createElement('li');
+                li.innerText = name + ', ' + player;
+                ul.appendChild(li);
+                div.appendChild(ul);
+                ul.onclick = delGroup;
+                groups.appendChild(div);
+            })
+    }
+</script>
+{% endblock script %}
